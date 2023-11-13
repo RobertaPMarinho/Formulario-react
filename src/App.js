@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import "./App.css";
+import FormularioCadastro from "./components/FormularioCadastro/FormularioCadastro";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Container, Typography } from "@mui/material";
+import ValidacoesCadastro from "./contexts/ValidacoesCadastro";
+import {validarCPF, validarSenha} from "./models/cadastro";
+
+class App extends Component {
+  render() {
+    return (
+      <Container component="article" maxWidth="sm">
+        <Typography variant="h3" component="h1" align="center">
+          Formulário de cadastro
+        </Typography>
+        <ValidacoesCadastro.Provider
+          value={{cpf: validarCPF , senha: validarSenha, nome: validarSenha}}>
+          <FormularioCadastro aoEnviar={aoEnviarForm} />
+        </ValidacoesCadastro.Provider>
+      </Container>
+    );
+  }
+}
+
+function aoEnviarForm(dados) {
+  console.log(dados);
 }
 
 export default App;
